@@ -45,46 +45,19 @@ LOG_PATH="${PWD}/log"
 PKG_PATH="${PWD}/packages"
 UNIN_SCRPT="lms_gw_uninstall.sh"
 SSL_SCRPT="lms_gw_ssl.sh"
+PRECK_SCRPT="lms_gw_prechecks.sh"
 CONF_FILE="lms_gw_install.conf"
 PKG_FILE="packages.conf"
 ### CODE ###
 
 ### PRECHECKS
-# Checking for supported package
-PKG_NAME=`ls -1 $PKG_PATH | grep -wf ${CONF_PATH}/${PKG_FILE} | grep -v "#" | tail -1`
-PKG_VER=`echo $PKG_NAME | awk -F"-" {'print $2"-"$3"-"$4"-"$5$6'}`
-if [ ! -z $PKG_NAME ]; then
-	echo "Package version $PKG_VER found"
-	echo "Supported package found:	OK"
-else
-	echo "Supported Package found:	FAILED"
-	echo "NO supported package found at path $PKG_PATH"
-	exit 20
-fi
 
-# Checking execute permissions for $PKG_NAME
-if [ ! -x ${PKG_PATH}/${PKG_NAME} ]; then
-        echo "Package $PKG_NAME cannot be executed"
-        echo "Current permissions"
-        ls -l ${PKG_PATH}/${PKG_NAME}
-        echo "Changing permissions"
-        chmod u+x  ${PKG_PATH}/${PKG_NAME}
-        ls -l ${PKG_PATH}/${PKG_NAME}
+source ${BIN_PATH}/${PRECK_SCRPT}
+if [ $? != 0 ];  then
+	echo [FAILED]	Prechecks failed
+	exit 1
 fi
-if [ ! -x ${PKG_PATH}/${PKG_NAME} ]; then
-                echo "Execute permission:       	FAILED"
-                exit 21
-else
-        echo "Execute permissions:       	OK"
-fi
-
-# Looking for configuration file
-if [ ! -f ${CONF_PATH}/$CONF_FILE ];then
-	echo "Config file found:		FAILED"
-        echo "$CONF_FILE NOT FOUND! at path $CONF_PATH"
-        exit 22
-fi
-echo "Config file found:         	OK"
+	
 
 # Check whether GW is already installed
 if [ -d /usr/local/groundwork ]; then
@@ -108,9 +81,10 @@ if [ -d /usr/local/groundwork ]; then
         fi
 fi
 
-# check na dns a hostname ci je v hosts file
 
-echo "All prechecks:            OK"
+### PRECHECKS
+
+source ${BIN_PATH}/${PRECK_SCRPT}
 
 ### INSTALATION
 echo "Your are about to install Groundwork Enterprise Monitoring version $PKG_VER"
