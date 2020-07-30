@@ -28,7 +28,7 @@
 # 30 - Instalation aborted by user
 #
 ### VARIABLES
-HOSTNAME=`hostaname -f`
+HOSTNAME=`hostname -f`
 PWD=`pwd`
 CONF_PATH="${PWD}/conf"
 BIN_PATH="${PWD}/scripts"
