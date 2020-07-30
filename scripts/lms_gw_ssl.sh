@@ -57,6 +57,8 @@ function F_revert {
 	
 	if [ $RVRT_EXTCODE -eq "0" ]; then
 		echo "Revert finished SUCCESSFULLY"
+		echo "Please try to start GW manually"
+		exit 57
 	else 
 		echo "Revert has FAILED"
 		exit 55
@@ -188,8 +190,6 @@ else
                if [ "$RVRT_ANSR" == "Y" ]; then
                         echo "Revert from BACKUP started"
                         F_revert
-                        echo "Please try to start GW manually"
-                        exit 53
                else
                         echo "Revert of the changes has been aborted"
                         exit 51
