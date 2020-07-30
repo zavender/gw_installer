@@ -27,17 +27,7 @@
 # 24 - gw uninstall failed check uninstall log
 # 30 - Instalation aborted by user
 #
-### VARIABLES
-HOSTNAME=`hostname -f`
-PWD=`pwd`
-CONF_PATH="${PWD}/conf"
-BIN_PATH="${PWD}/scripts"
-LOG_PATH="${PWD}/log"
-PKG_PATH="${PWD}/packages"
-UNIN_SCRPT="lms_gw_uninstall.sh"
-SSL_SCRPT="lms_gw_ssl.sh"
-CONF_FILE="lms_gw_install.conf"
-PKG_FILE="packages.conf"
+
 ### CODE ###
 
 ### PRECHECKS
