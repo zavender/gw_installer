@@ -146,7 +146,11 @@ echo $INST_ANSR
 if [ "$INST_ANSR" == "Y" ]; then
         echo "Instalation has began..."
         ${PKG_PATH}/${PKG_NAME} --mode unattended --optionfile ${CONF_PATH}/${CONF_FILE}
-        echo "Exit code from package is: $?"
+	INSTALL_ERRCODE=$?
+	if [ "$INSTALL_ERRCODE" != 0 ]; then
+        	echo "Exit code from package is: $INSTALL_ERRCODE"
+		exit $INSTALL_ERRCODE
+	fi
 else
         echo "Instalation aborted"
         exit 30
