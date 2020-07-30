@@ -90,9 +90,9 @@ fi
 echo "[OK]	Config file found"
 
 # Check whether hostname -f is pingable
-ping -c 1 $HOSTNAME
+ping -c 1 $HOSTNAME > /dev/null 2>&1
 if [ $? = 0 ]; then	
-	echo [OK] server $HOSTNAME is pingable!
+	echo [OK]	server $HOSTNAME is pingable!
 else	
 	echo "Please add primary IP and HOSTNAME into /etc/hosts"
 	exit  25
@@ -134,7 +134,7 @@ fi
 
 ### PRECHECKS
 
-source ${BIN_PATH}/${PRECK_SCRPT}
+#source ${BIN_PATH}/${PRECK_SCRPT}
 
 ### INSTALATION
 echo "Your are about to install Groundwork Enterprise Monitoring version $PKG_VER"
