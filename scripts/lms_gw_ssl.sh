@@ -75,6 +75,7 @@ else
         else
 		echo "Aborted by USER"
 		exit 51
+	fi
 fi
 
 ### IMPLEMENTATION 
