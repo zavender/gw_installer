@@ -28,7 +28,7 @@
 # 57 - SSL implementation FAILED
 ### VARIABLES
 GW_SERVER=`hostname -f`
-BKP_FOLDR="${PWD}/backup.`date +%m%d%Y_%H%M`"
+BKP_FOLDR="${PWD}/SSL_backup"
 APACHE_CONF="/usr/local/groundwork/apache2/conf/httpd.conf"
 # How often check whether groundwork restart has finished
 SLEEP="30"
@@ -67,6 +67,14 @@ function F_revert {
 if [ ! -d $BKP_FOLDR ]; then
 	mkdir -p $BKP_FOLDR
 	echo "Backup dir created $BKP_FOLDR"
+else 
+	echo "SSL backup folder found"
+	read -p "Do you want to restore from SSL BACKUP ? [Y/N] " SSL_RESTORE
+        if [ "$SSL_RESTORE" == "Y" ]; then
+                F_revert
+        else
+		echo "Aborted by USER"
+		exit 51
 fi
 
 ### IMPLEMENTATION 
